@@ -1,0 +1,89 @@
+/*Step 1 - Look up the Evt codes for the live and on-demand event*/
+SELECT evt_key, evt_code FROM ev_event WHERE evt_code LIKE '698%'
+--evt_key                                evt_code
+--4230B1C1-76CD-42F2-B5A3-058494415FFB	1716-3-14w
+--FFA7F868-9791-46BD-906A-A99423EE29C9	1716-4-14w
+
+
+SELECT  cst_key AS reg_cst_key ,
+        reg_evt_key = 'FFA7F868-9791-46BD-906A-A99423EE29C9', --Get the evt_key for this and update here
+        reg_registration_date = '09/10/2014', --add the date of the event
+        cst_org_name_dn AS reg_org_name_dn ,
+        cst_ixo_key AS reg_ixo_key ,
+        cst_cxa_key AS reg_cxa_key ,
+        cst_cph_key AS reg_cph_key ,
+        cst_eml_key AS reg_eml_key ,
+        cst_cfx_key AS reg_cfx_key ,
+        reg_rgt_key = 'C916D3DB-0EE4-4EC4-8B65-622BD6D20258' ,
+        reg_attendance_flag = '1'
+        
+FROM    co_customer
+WHERE   cst_recno IN ( 
+'15781'
+,'550651'
+,'646823'
+,'163182'
+,'596003'
+,'654448'
+,'519541'
+,'158782'
+,'143653'
+,'657870'
+,'7842'
+,'161964'
+,'197881'
+,'653045'
+,'256295'
+,'620083'
+,'127984'
+,'17742'
+,'98445'
+,'597352'
+,'17548'
+,'227402'
+,'516314'
+,'574562'
+,'562447'
+,'149161'
+,'150903'
+,'588726'
+,'162892'
+,'268063'
+
+)
+
+
+
+/*Manipulate information inside of Excel to get dates and whatnot fixed
+--Example of Insert Statement
+insert into ev_registrant (reg_cst_key, reg_evt_key, reg_registration_date, reg_org_name_dn, reg_ixo_key, reg_cxa_key, reg_cph_key, reg_eml_key, reg_cfx_key, reg_rgt_key, reg_attendance_flag) Values ('9AA91080-9202-4E3C-9954-060A303862F5','CFFC49F6-790D-46AC-B5C3-813EE0E4C58B','8/16/2012','Saddlebrook Course at The Villages - Championship','90E12111-9EA3-4C81-83DD-14DFC5916AFF','76D6617B-BB1C-43EB-AB03-F268794815F8','10B2AC31-BE27-4842-9AAF-25B6AA38304A','6A7E4C72-FF0B-413B-9461-C2F8DF6B67A3','1904EFD0-35C7-4753-AC61-C0D8FC51708C','C916D3DB-0EE4-4EC4-8B65-622BD6D20258','1')
+insert into ev_registrant (reg_cst_key, reg_evt_key, reg_registration_date, reg_org_name_dn, reg_ixo_key, reg_cxa_key, reg_cph_key, reg_eml_key, reg_cfx_key, reg_rgt_key, reg_attendance_flag) Values ('
+*/
+
+
+--get session from ev_event the manipulate in excel
+
+select top 10 * from ev_session where ses_code like  '1716%'
+--update ses and evt key's
+
+SELECT  reg_key AS rgs_reg_key ,
+        rgs_ses_key = '13E6E9EB-774A-4471-B39C-1D3F99D689C9' ,
+        rgs_attendance_flag = '1' ,
+        rgs_qty = '1' ,
+        reg_add_date
+FROM    ev_registrant
+WHERE   reg_evt_key = 'FFA7F868-9791-46BD-906A-A99423EE29C9'
+ORDER BY reg_add_date DESC
+
+
+
+/*insert data into sessions
+Example to get into sessions from above information
+
+Example -  insert into ev_registrant_session (rgs_reg_key, rgs_ses_key, rgs_attendance_flag, rgs_qty) Values ('39AA8248-FF43-479B-93A3-033D7889659D','258d8660-c9c0-4f65-86a7-d772712283e3','1','1')
+Insert into Column A - MAKE SURE YOU REMOVE THE DATE BEFORE INSERT
+insert into ev_registrant_session (rgs_reg_key, rgs_ses_key, rgs_attendance_flag, rgs_qty) Values ('
+
+*/
+
+

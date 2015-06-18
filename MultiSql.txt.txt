@@ -1,0 +1,5 @@
+Select count(*) from co_customer where cst_member_flag = 1
+
+select evt_key from ev_event where evt_code = 'GIS2015'
+
+select top 10 * from co_address
